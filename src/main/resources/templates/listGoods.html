@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+	$(function(){
+		$(".deletebtn").click(function(){
+			re = confirm("정말 삭제하시겠습니까?");
+			if(re==1){
+				location.href="deleteGoods/"+$(this).val()
+			}
+		})
+		
+		$("table").on("click",".dept",function(){
+			$("#submit").val("수정");
+			$("#no").attr("readonly","");
+			td_list = $(this).find("td");
+			$("#no").val($(td_list[0]).text());
+			$("#item").val($(td_list[1]).text());
+			$("#price").val($(td_list[2]).text());
+			$("#qty").val($(td_list[3]).text());
+			$("#fname").val($(td_list[4]).text());
+		})
+		$("#reset").click(function(){
+			$("#submit").val("등록");
+			$("#no").removeAttr("readonly");
+		})
+	})
+</script>
+</head>
+<body>
+<h2>부서목록</h2>
+<hr>
+	<table border="1">
+		<tr>
+			<th>상품번호</th>
+			<th>상품이름</th>
+			<th>상품가격</th>
+			<th>상품갯수</th>
+			<th>사진이름</th>
+			<th>Action</th>
+		</tr>
+		<tr th:each="g:${list}" th:class="goods">
+			<td th:text="${g.no}"></td>
+			<td th:text="${g.item}"></td>
+			<td th:text="${g.price}"></td>
+			<td th:text="${g.qty}"></td>
+			<td th:text="${g.fname}"></td>
+			<td><button class="deletebtn" th:value="${g.no}">삭제</button>&nbsp;<a th:href="'detailGoods?no='+${g.no}">상세보기</a></td>
+		</tr>
+	</table>
+	<hr>
+	<form action="saveGoods" method="post" enctype="multipart/form-data">
+		<table>
+			<tr>
+				<td>상품번호</td>
+				<td><input type="number" name="no" id="no"/></td>
+			</tr>
+			<tr>
+				<td>상품이름</td>
+				<td><input type="text" name="item" id="item"/></td>
+			</tr>
+			<tr>
+				<td>상품가격</td>
+				<td><input type="text" name="price" id="price"/></td>
+			</tr>
+			<tr>
+				<td>상품갯수</td>
+				<td><input type="text" name="qty" id="qty"/></td>
+			</tr>
+		</table>
+		<input type="hidden" name="fname" id="fname"/>
+		파일 선택 : <input type="file" name="uploadFile" id="uploadFile"/><br>
+		<input type="submit" value="등록" id="submit">
+		<input type="reset" value="초기화" id="reset"/>
+	</form>
+</body>
+</html>

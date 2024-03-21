@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+상품번호 : <span th:text="${g.no}"></span><br>
+상품이름 : <span th:text="${g.item}"></span><br>
+상품가격 : <span th:text="${g.price}"></span><br>
+상품갯수 : <span th:text="${g.qty}"></span><br>
+<span th:if="${g.fname != null}">
+<img th:src="'/images/'+${g.fname}" width="50px" height="50px"/><br>
+</span>
+<a href="listGoods">목록</a>
+</body>
+</html>
