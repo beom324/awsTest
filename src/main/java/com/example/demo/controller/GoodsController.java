@@ -55,7 +55,7 @@ public class GoodsController {
 		return "redirect:/listGoods";
 	}
 
-	@GetMapping("/deleteGoods/{dno}")
+	@GetMapping("/deleteGoods/{no}")
 	public String deleteGoods(@PathVariable int no, HttpServletRequest request) {
 		Goods g = dao.findById(no).get();
 		String path = request.getServletContext().getRealPath("images");
